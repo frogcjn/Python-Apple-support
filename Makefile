@@ -463,11 +463,15 @@ $$(PYTHON_INCLUDE-$(sdk))/pyconfig.h: $$(PYTHON_LIB-$(sdk))
 	echo "#!/bin/bash\necho Can\\'t run $(sdk) binary\nexit 1" > $$(PYTHON_BIN-$(sdk))/python$(PYTHON_VER)
 	chmod 755 $$(PYTHON_BIN-$(sdk))/python$(PYTHON_VER)
 
+	# fix WINDOW type in py_curses.h
+	sed -i "" s/WINDOW/void/g "$$(PYTHON_INCLUDE-$$(firstword $$(SDK_TARGETS-$(sdk))))"/py_curses.h
+
 	# Copy headers as-is from the first target in the $(sdk) SDK
 	cp -r $$(PYTHON_INCLUDE-$$(firstword $$(SDK_TARGETS-$(sdk)))) $$(PYTHON_INCLUDE-$(sdk))
 
 	# Copy in the modulemap file
-	cp -r patch/Python/module.modulemap $$(PYTHON_INCLUDE-$(sdk))
+	mkdir -p $$(PYTHON_FRAMEWORK-$(sdk))/Modules
+	cp -r patch/Python/module.modulemap $$(PYTHON_FRAMEWORK-$(sdk))/Modules
 
 	# Link the PYTHONHOME version of the headers
 	mkdir -p $$(PYTHON_INSTALL-$(sdk))/include
@@ -586,7 +590,8 @@ $$(PYTHON_XCFRAMEWORK-$(os))/Info.plist: \
 	patch/make-relocatable.sh $$(PYTHON_INSTALL_VERSION-macosx) 2>&1 > /dev/null
 
 	# Copy in the modulemap file
-	cp -r patch/Python/module.modulemap $$(PYTHON_FRAMEWORK-macosx)/Headers
+	mkdir -p $$(PYTHON_FRAMEWORK-macosx)/Modules
+	cp -r patch/Python/module.modulemap $$(PYTHON_FRAMEWORK-macosx)/Modules
 
 	# Re-apply the signature on the binaries.
 	codesign -s - --preserve-metadata=identifier,entitlements,flags,runtime -f $$(PYTHON_LIB-macosx) \
