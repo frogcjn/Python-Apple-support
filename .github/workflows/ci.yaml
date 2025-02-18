@@ -136,7 +136,7 @@ jobs:
       if: matrix.run-tests
       run: |
         # Use the development version of Briefcase
-        python -m pip install git+https://github.com/frogcjn/briefcase.git
+        python -m pip install git+https://github.com/beeware/briefcase.git
 
     - name: Run support testbed check
       if: matrix.run-tests
