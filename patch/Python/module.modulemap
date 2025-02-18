@@ -50,9 +50,9 @@ framework module Python {
     }
 
     exclude header "dynamic_annotations.h"
-    exclude header "pyconfig-arm32_64.h"
-    exclude header "pyconfig-x86_64.h"
     exclude header "pyconfig-arm64.h"
+    exclude header "pyconfig-x86_64.h"
+    exclude header "pyconfig-arm32_64.h"
     exclude header "pyexpat.h"
 
     exclude header "cpython/pthread_stubs.h"
