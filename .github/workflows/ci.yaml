@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 3.*
+      - modular-framework
   workflow_call:
     inputs:
       build-number:
