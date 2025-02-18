@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 3.*
+  workflow_dispatch:
   workflow_call:
     inputs:
       build-number:
@@ -33,7 +34,7 @@ on:
       XZ_VERSION:
         description: "The XZ version used for the build."
         value: ${{ jobs.config.outputs.XZ_VERSION }}
-
+  
 env:
   FORCE_COLOR: "1"
 
