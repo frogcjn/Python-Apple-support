@@ -1,12 +1,10 @@
 name: CI
 on:
   pull_request:
-  workflow_dispatch: {}
   push:
     branches:
       - main
       - 3.*
-      - modular-framework
   workflow_call:
     inputs:
       build-number:
@@ -35,7 +33,7 @@ on:
       XZ_VERSION:
         description: "The XZ version used for the build."
         value: ${{ jobs.config.outputs.XZ_VERSION }}
-  
+
 env:
   FORCE_COLOR: "1"
 
